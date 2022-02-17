@@ -31,6 +31,9 @@ function submitForm() {
         }
         )
         .then((response) => response.json())
-        .then((json) => console.log(json))
+        .then((json) => {
+            localStorage.setItem ('token', JSON.stringify(json));
+            setTimeout(() => localStorage.removeItem('token'), 600000);
+        })
         .catch((error) => console.log(error));
 }
