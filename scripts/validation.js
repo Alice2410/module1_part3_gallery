@@ -2,7 +2,6 @@ const email = document.getElementById('email');
 const errorEmail = document.getElementById('email-error');
 const password = document.getElementById('password');
 const errorPassword = document.getElementById('password-error');
-console.log (email);
 
 email.addEventListener( 'input', function () { 
 
