@@ -5,7 +5,6 @@ const errorPassword = document.getElementById('password-error');
 
 email.addEventListener( 'input', function () { 
 
-    console.log (email.value);
     if ((/\w[-\w+]@\w+\.\w{2,}/.test(email.value))) {
         email.classList.remove('invalid');
         email.classList.add('valid');
@@ -25,7 +24,6 @@ email.addEventListener( 'input', function () {
 
 password.addEventListener( 'input', function () { 
 
-    console.log (password.value);
     if ((/[a-zA-Z0-9]{8,}/.test(password.value))) {
         password.classList.remove('invalid');
         password.classList.add('valid');
@@ -40,8 +38,6 @@ password.addEventListener( 'input', function () {
         errorPassword.classList.add('authorization-form__error--invalid');
         console.log ('invalid');
     }
-
-   
 })
     
     
