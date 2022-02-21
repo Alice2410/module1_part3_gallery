@@ -17,7 +17,6 @@ email.addEventListener( 'input', function () {
         errorEmail.innerHTML = 'Введите корректный email.'
         errorEmail.classList.remove('authorization-form__error--valid');
         errorEmail.classList.add('authorization-form__error--invalid');
-        console.log ('invalid');
     }
 
 })

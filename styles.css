@@ -54,3 +54,19 @@
 .valid {
     border-color: green;
 }
+
+.links-list {
+    display: flex;
+    list-style: none;
+}
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+img {
+    width: 300px;
+    object-fit: cover;
+}
