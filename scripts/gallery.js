@@ -1,13 +1,9 @@
 import {localStorageTokenKey, tokenTimestampKey, basicGalleryURL} from '/scripts/variables.js';
-
-let tokenObject = JSON.parse(localStorage.getItem("token"));
-let pageNumber = window.location.search;
+const linksList = document.getElementById('links');
+const tokenObject = JSON.parse(localStorage.getItem(localStorageTokenKey));
 
 setInterval(checkTokenIs, 5000);
-
-goToPage();
-
-const linksList = document.getElementById('links');
+goToNewGalleryPage();
 linksList.addEventListener("click", createNewAddressOfCurrentPage);
 
 function createNewAddressOfCurrentPage(e) {
@@ -15,17 +11,17 @@ function createNewAddressOfCurrentPage(e) {
     window.location.href = "gallery.html" + "?page=" + number;
 }
 
-function goToPage() { 
-let requestGalleryURL = basicGalleryURL + window.location.search;
-fetch( requestGalleryURL,
-    {
-        method: "GET",
-        headers: {
-            Authorization: tokenObject.token
-        }
-    })
-    .then((response) => {
+function goToNewGalleryPage() { 
+    let requestGalleryURL = basicGalleryURL + window.location.search;
 
+    fetch( requestGalleryURL,
+        {
+            method: "GET",
+            headers: {
+                Authorization: tokenObject.token
+            }
+        })
+    .then((response) => {
         if (response.ok) {
             return response;
         } else {
@@ -45,19 +41,19 @@ function createImages(imagesObject) {
         let imageSection = document.getElementById("photo-section");
 
         for ( let i = 0; i < imagesArray.length; i++) {
-            let myImage = document.createElement('img')
+            let myImage = document.createElement('img');
             myImage.src = imagesArray[i];
             imageSection.append(myImage);
         }
 }
 
 function checkTokenIs() {
-        if ((Date.now() - localStorage.tokenReceiptTime) >= 10000) {
-            localStorage.removeItem(localStorageTokenKey);
-            localStorage.removeItem(tokenTimestampKey);
-            linksList.removeEventListener("click", createNewAddressOfCurrentPage);
-            redirectToAuthorization();
-        }
+    if ((Date.now() - (localStorage.getItem(tokenTimestampKey))) >= 10000) {
+        localStorage.removeItem(localStorageTokenKey);
+        localStorage.removeItem(tokenTimestampKey);
+        linksList.removeEventListener("click", createNewAddressOfCurrentPage);
+        redirectToAuthorization();
+    }
 }
 
 function redirectToAuthorization() {

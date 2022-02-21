@@ -7,10 +7,10 @@ authorizationForm.addEventListener("submit", startAuthorization);
 
 function startAuthorization(e) {
     e.preventDefault();
-    getTokenData();
+    loginWithToken();
 }
 
-function getTokenData() { 
+function loginWithToken() { 
     let user = {
         email: userEmail.value,
         password: userPassword.value
