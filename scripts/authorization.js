@@ -1,8 +1,7 @@
 const authorizationForm = document.getElementById('authorization-form');
 const userEmail = document.getElementById('email');
 const userPassword = document.getElementById('password');
-const loginURL = 'https://hjdjs55gol.execute-api.us-east-1.amazonaws.com/api/login';
-
+import {loginURL, localStorageTokenKey, tokenTimestampKey} from '/scripts/variables.js';
 
 authorizationForm.addEventListener("submit", startAuthorization);
 
@@ -62,11 +61,11 @@ function redirect() {
 }
 
 function saveToken(json) {
-    localStorage.setItem ('token', JSON.stringify(json));
+    localStorage.setItem (localStorageTokenKey, JSON.stringify(json));
 }
 
 function saveTokenReceiptTime() {
     let tokenReceiptTime = Date.now();
-    localStorage.setItem ('tokenReceiptTime', tokenReceiptTime);
+    localStorage.setItem (tokenTimestampKey, tokenReceiptTime);
 }
 

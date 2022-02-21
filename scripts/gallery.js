@@ -1,4 +1,4 @@
-const basicGalleryURL = 'https://hjdjs55gol.execute-api.us-east-1.amazonaws.com/api/gallery';
+import {localStorageTokenKey, tokenTimestampKey, basicGalleryURL} from '/scripts/variables.js';
 
 let tokenObject = JSON.parse(localStorage.getItem("token"));
 let pageNumber = window.location.search;
@@ -41,10 +41,10 @@ fetch( requestGalleryURL,
 }
 
 function createImages(imagesObject) {
-        imagesArray = imagesObject.objects;
+        let imagesArray = imagesObject.objects;
         let imageSection = document.getElementById("photo-section");
 
-        for ( i = 0; i < imagesArray.length; i++) {
+        for ( let i = 0; i < imagesArray.length; i++) {
             let myImage = document.createElement('img')
             myImage.src = imagesArray[i];
             imageSection.append(myImage);
@@ -53,8 +53,8 @@ function createImages(imagesObject) {
 
 function checkTokenIs() {
         if ((Date.now() - localStorage.tokenReceiptTime) >= 10000) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('tokenReceiptTime');
+            localStorage.removeItem(localStorageTokenKey);
+            localStorage.removeItem(tokenTimestampKey);
             linksList.removeEventListener("click", createNewAddressOfCurrentPage);
             redirectToAuthorization();
         }
