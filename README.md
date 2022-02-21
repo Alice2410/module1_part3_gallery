@@ -19,6 +19,14 @@ The project also implements receiving images from the server and displaying them
 ![Gallery](/assets/Gallery.png)
 
 ---
+## How to Use
+
+To use this app you need to:
+1. Download project folder
+2. Run index.html file, using Live Server or another local server
+3. Log in with valid email and password
+
+---
 
 ## Project Structure
 

@@ -1,26 +1,27 @@
-const basicGalleryURL = 'https://hjdjs55gol.execute-api.us-east-1.amazonaws.com/api/gallery';
+import {localStorageTokenKey, tokenTimestampKey, basicGalleryURL} from '/scripts/variables.js';
+const linksList = document.getElementById('links');
+const tokenObject = JSON.parse(localStorage.getItem(localStorageTokenKey));
 
-let tokenObject = JSON.parse(localStorage.getItem("token"));
-let pageNumber = window.location.search;
-setInterval(checkTokenIs, 300000);
-let linksList = document.getElementById('links');
-linksList.addEventListener("click", (e) => {
+setInterval(checkTokenIs, 5000);
+goToNewGalleryPage();
+linksList.addEventListener("click", createNewAddressOfCurrentPage);
+
+function createNewAddressOfCurrentPage(e) {
     let number = e.target.textContent;
     window.location.href = "gallery.html" + "?page=" + number;
-});
-goToPage();
+}
 
-function goToPage() { 
-let requestGalleryURL = basicGalleryURL + window.location.search;
-fetch( requestGalleryURL,
-    {
-        method: "GET",
-        headers: {
-            Authorization: tokenObject.token
-        }
-    })
+function goToNewGalleryPage() { 
+    let requestGalleryURL = basicGalleryURL + window.location.search;
+
+    fetch( requestGalleryURL,
+        {
+            method: "GET",
+            headers: {
+                Authorization: tokenObject.token
+            }
+        })
     .then((response) => {
-
         if (response.ok) {
             return response;
         } else {
@@ -29,7 +30,6 @@ fetch( requestGalleryURL,
     })
     .then((response) => response.json())
     .then((imagesObject) => createImages(imagesObject))
-    /*.then(() => makeHref())*/
     .catch((error) => {
         console.log(error);
         alert(error);
@@ -37,22 +37,23 @@ fetch( requestGalleryURL,
 }
 
 function createImages(imagesObject) {
-        imagesArray = imagesObject.objects;
+        let imagesArray = imagesObject.objects;
         let imageSection = document.getElementById("photo-section");
 
-        for ( i = 0; i < imagesArray.length; i++) {
-            let myImage = document.createElement('img')
+        for ( let i = 0; i < imagesArray.length; i++) {
+            let myImage = document.createElement('img');
             myImage.src = imagesArray[i];
             imageSection.append(myImage);
         }
 }
 
 function checkTokenIs() {
-        if ((Date.now() - localStorage.tokenReceiptTime) >= 600000) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('tokenReceiptTime');
-            redirectToAuthorization();
-        }
+    if ((Date.now() - (localStorage.getItem(tokenTimestampKey))) >= 10000) {
+        localStorage.removeItem(localStorageTokenKey);
+        localStorage.removeItem(tokenTimestampKey);
+        linksList.removeEventListener("click", createNewAddressOfCurrentPage);
+        redirectToAuthorization();
+    }
 }
 
 function redirectToAuthorization() {
@@ -60,15 +61,4 @@ function redirectToAuthorization() {
         let searchParam = currentPage.search;
         window.location.href = "index.html" + searchParam;
 }
-
-/*function makeHref () {
-    linksList = document.getElementById('links');
-    linksList.addEventListener("click", (e) => {
-        let number = e.target.textContent;
-        console.log(number);
-        window.location.href = "gallery.html" + "?page=" + number;
-        goToPage();
-    });
-}
-*/
             
