@@ -29,8 +29,7 @@ function getTokenData() {
              } 
 
             throw new Error(`${response.status} — ${response.statusText}`);
-        }
-        )
+        })
         .then((response) => response.json())
         .then((json) => {
             if (json.token){ 
@@ -43,7 +42,19 @@ function getTokenData() {
             saveToken(json);
             saveTokenReceiptTime();
         })
+        .then(() => redirect())
         .catch((error) => console.log(error));
+}
+
+function redirect() {
+    const currentPage = window.location;
+    const pageNumber = currentPage.search;
+
+    if (pageNumber) {
+        window.location.href = "gallery.html" + pageNumber;
+    } else {
+        window.location.href = "gallery.html" + "?page=1";
+    }
 }
 
 function saveToken(json) {
