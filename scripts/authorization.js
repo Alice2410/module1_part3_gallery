@@ -4,10 +4,12 @@ const userPassword = document.getElementById('password');
 const loginURL = 'https://hjdjs55gol.execute-api.us-east-1.amazonaws.com/api/login';
 
 
-authorizationForm.addEventListener("submit", (e) => {
+authorizationForm.addEventListener("submit", startAuthorization);
+
+function startAuthorization(e) {
     e.preventDefault();
     getTokenData();
-});
+}
 
 function getTokenData() { 
     let user = {
@@ -49,6 +51,8 @@ function getTokenData() {
 function redirect() {
     const currentPage = window.location;
     const pageNumber = currentPage.search;
+
+    authorizationForm.removeEventListener("submit", startAuthorization);
 
     if (pageNumber) {
         window.location.href = "gallery.html" + pageNumber;
