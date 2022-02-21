@@ -1,5 +1,6 @@
 # Module1_Part3
 `Project author:` Alice Bushlya
+
 [**Issues**](https://github.com/Alice2410/module1_part3_gallery/issues)
 
 ---
@@ -15,13 +16,15 @@ In this project, authorization is implemented with the receipt of a token and it
 
 The project also implements receiving images from the server and displaying them to the user.
 
-![Gallery](/assets/Galery.png)
+![Gallery](/assets/Gallery.png)
 
 ---
 
 ## Project Structure
 
 `module1_part2`
+
+```
 |
 |
 |__README.md
@@ -46,3 +49,4 @@ The project also implements receiving images from the server and displaying them
 |  |__validation.js
 |
 |__styles.css 
+```
